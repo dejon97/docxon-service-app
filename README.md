@@ -1,39 +1,50 @@
-# NAVOMI-PROJECT-TEMPLATE-APP #
+# DOCXON-SERVICE-APP #
 
-*NAVOMI-PROJECT-TEMPLATE-APP* is a Mauris pretium eu est in blandit. Suspendisse sodales urna ac dolor pellentesque, sed interdum erat auctor. Vivamus varius lectus et consequat imperdiet. Fusce semper tincidunt dui, eu dictum nisl accumsan auctor. Quisque euismod lorem non tellus laoreet, in finibus velit iaculis. Duis est nulla, tristique in mattis in, facilisis et sem.
+*DOCXON-SERVICE-APP* is a REST-based service that provides end points to ingest, update, retrieve, and search documents based on the DocXON (Document Transfer Object Notation) protocol. It can be used as a stand-alone module or a component of a full-featured platform. Also part of t of *DOCXON-SERVICE-APP* are end points to register, update, list, and delete document types.
+
 
 
 ## Features ##
 
-NAVOMI PROJECT TEMPLATE APP provides the following:
+DOCXON SERVICE APP provides the following:
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Ingest DocXON payloads
+- Update a DocXON entry
+- Retrieve a DocXON entry
+- Search DocXON entries
+- Register a Document Type
+- Update a Document Type
+- List Document Types
+- Delete a Document Type (logical delete)
 
 
 ## Tech Stack ##
-- Node.js: https://nodejs.org/en (v14.0)
+- Node.js: https://nodejs.org/en
+- Express: https://www.npmjs.com/package/express
+- Ajv JSON schema validator: https://www.npmjs.com/package/ajv
+- CORS: https://www.npmjs.com/package/cors 
 - Cloud Firestore: https://firebase.google.com/docs/firestore
+- GCP Cloud Storage: https://cloud.google.com/storage
 - Yarn: https://yarnpkg.com
-- Jest: https://jestjs.io (v26.0)
-- etc
+- Docker: https://www.docker.com/
+- GCP GKE: https://cloud.google.com/kubernetes-engine
+
 
 ## Installation ##
 
-NAVOMI PROJECT TEMPLATE APP donec eu nibh non leo pretium feugiat at non nisi. Nunc placerat eleifend metus, non elementum diam elementum ut. Phasellus a tincidunt risus. Proin vehicula aliquam feugiat.
+DOCXON Service App is a basic Node.js Express app.
 
 ```
-git clone git@bitbucket.org:navomi/navomi-project-template-app.git
-cd navomi-project-template-app
+git clone git@github.com:dejon97/docxon-service-app.git
+cd docxon-service-app
 yarn install
 ```
 
 ## How to Use ##
 
-NAVOMI PROJECT TEMPLATE APP cras accumsan, ex ac feugiat dignissim, massa felis efficitur massa, eget ornare dolor odio id augue. Maecenas commodo, quam facilisis congue tincidunt, tellus mauris porttitor nibh, sit amet sodales mauris ante a massa.
+DOCXON SERVICE AP cras accumsan, ex ac feugiat dignissim, massa felis efficitur massa, eget ornare dolor odio id augue. Maecenas commodo, quam facilisis congue tincidunt, tellus mauris porttitor nibh, sit amet sodales mauris ante a massa.
 
-To launch NAVOMI-PROJECT-TEMPLATE-APP for local development
+To launch DOCXON-SERVICE-APP for local development
 
 ```
 yarn run start-dev
@@ -47,7 +58,7 @@ yarn run start-dev
 
 ## Project Management ##
 
-- [NAVOMI Project Template App](https://bebbanburg.com/jira/)
+- [DOCXON Service App](https://bebbanburg.com/jira/)
 
 ## Program Team ##
 
