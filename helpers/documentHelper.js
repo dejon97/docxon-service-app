@@ -5,7 +5,7 @@ const gc = require('../config/');
 dotenv.config();
 const bucket = gc.bucket(process.env.BUCKET_NAME);
 
-const uploaFile = (file) =>
+const uploadFile = (file) =>
   new Promise((resolve, reject) => {
     const { originalname, buffer } = file;
     const blob = bucket.file(originalname);
@@ -22,4 +22,4 @@ const uploaFile = (file) =>
       })
       .end(buffer);
   });
-module.exports = uploaFile;
+module.exports = uploadFile;
