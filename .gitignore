@@ -179,3 +179,5 @@ src/fake_seed.js
 anonymous-cli-metrics.json
 *-audit.json
 *.log
+config/key.json
+config/index.js
