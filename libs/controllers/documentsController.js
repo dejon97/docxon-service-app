@@ -31,9 +31,9 @@ const postDocuments = async (req, res, next) => {
     const myFile = req.file;
     const fileUrl = await uploadFile(myFile);
     if (!fileUrl) {
-      console.log('couldnt upload content');
+      throw new Error('Sorry unable to upload try again ');
     }
-    res.status(200).json({ message: 'Upload was successful', data: fileUrl });
+    res.status(201).json({ message: 'Upload was successful', data: fileUrl });
   } catch (error) {
     next(error);
   }
