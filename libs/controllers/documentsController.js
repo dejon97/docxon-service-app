@@ -1,3 +1,7 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const uploadFile = require('../../helpers/documentHelper');
 
 // https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
 const getDocuments = () => {
@@ -18,18 +22,21 @@ const getDocumentsById = (id) => {
  * The is the primary end point for ingesting docxon payloads.
  *
  */
-const postDocuments = (docxonPayload) => {
+const postDocuments = async (req, res, next) => {
   // use Ajv JSON schema validator to validate the payload https://www.npmjs.com/package/ajv
   // base 64 decode document
   // persist document to Google Cloud Storage
   // persit properties to Google Cloud Firestore
-
-  const response = {
-    code: 0,
-    message: 'document saved successfully',
-  };
-
-  return response;
+  try {
+    const myFile = req.file;
+    const fileUrl = await uploadFile(myFile);
+    if (!fileUrl) {
+      console.log('couldnt upload content');
+    }
+    res.status(200).json({ message: 'Upload was successful', data: fileUrl });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
