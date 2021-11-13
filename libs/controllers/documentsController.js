@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const uploadFile = require('../../helpers/documentHelper');
+const documentHelper = require('../../helpers/documentHelper');
 
 // https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
 const getDocuments = () => {
@@ -29,11 +29,21 @@ const postDocuments = async (req, res, next) => {
   // persit properties to Google Cloud Firestore
   try {
     const myFile = req.file;
-    const fileUrl = await uploadFile(myFile);
+    const properties = req.body;
+    const fileUrl = await documentHelper.uploadFile(myFile);
     if (!fileUrl) {
       throw new Error('Sorry unable to upload try again ');
     }
-    res.status(201).json({ message: 'Upload was successful', data: fileUrl });
+    const attributes = await documentHelper.uploadProperties(fileUrl);
+    if (!attributes) {
+      throw new Error('sorry unable to upload properties');
+    }
+    const newDoc = {
+      docId: attributes,
+      message: 'document succesfully added ',
+    };
+
+    res.status(201).json(newDoc);
   } catch (error) {
     next(error);
   }
