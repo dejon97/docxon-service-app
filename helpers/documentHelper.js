@@ -44,4 +44,24 @@ const uploadProperties = async (body) => {
     return Error('something went wrong');
   }
 };
-module.exports = { uploadFile, uploadProperties };
+
+const getDocumetnByUserId = async (userId) => {
+  try {
+    const docxonRef = db.collection('docxondb');
+    const snapshot = await docxonRef.where('userId', '==', userId).get();
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+    }
+    if (!snapshot) {
+      throw new Error('something went wrong try to get documents');
+    }
+
+    // snapshot.forEach((doc) => {
+    //   console.log(doc.id, '=>', doc.data());
+    // });
+    return snapshot;
+  } catch (err) {
+    return Error('something went wront try agian');
+  }
+};
+module.exports = { uploadFile, uploadProperties, getDocumetnByUserId };

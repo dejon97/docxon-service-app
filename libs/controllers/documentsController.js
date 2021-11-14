@@ -10,10 +10,11 @@ const getDocuments = () => {
   return documents;
 };
 
-const getDocumentsById = (id) => {
-  const documents = [];
+const getDocumentsById = async (req, res, next) => {
+  const { id } = req.params;
 
-  return documents;
+  const document = documentHelper.getDocumetnByUserId(id);
+  console.log(document);
 };
 
 /**

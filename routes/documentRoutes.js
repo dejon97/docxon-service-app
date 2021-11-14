@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
   res.send('documents');
 });
 
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  res.send(`documents ${id}`);
+router.get('/:id', (req, res, next) => {
+  documentsController.getDocumentsById(req, res, next);
+  // res.send(`documents ${id}`);
 });
 
 router.post(
