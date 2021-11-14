@@ -180,3 +180,4 @@ anonymous-cli-metrics.json
 *-audit.json
 *.log
 config/key.json
+config/firestoreKey.js

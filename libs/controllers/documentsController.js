@@ -29,21 +29,33 @@ const postDocuments = async (req, res, next) => {
   // persit properties to Google Cloud Firestore
   try {
     const myFile = req.file;
-    const properties = req.body;
-    const fileUrl = await documentHelper.uploadFile(myFile);
-    if (!fileUrl) {
-      throw new Error('Sorry unable to upload try again ');
+    const newDoc = req.body;
+    console.log(newDoc);
+    if (myFile) {
+      const fileUrl = await documentHelper.uploadFile(myFile);
+      if (!fileUrl) {
+        throw new Error('Sorry unable to upload try again ');
+      }
+      const attributes = await documentHelper.uploadProperties(newDoc);
+      if (!attributes) {
+        throw new Error('sorry unable to upload properties');
+      }
+      const createdDoc = {
+        docId: attributes,
+        message: 'document succesfully added ',
+      };
+      res.status(201).json(createdDoc);
+    } else {
+      const attributes = await documentHelper.uploadProperties(newDoc);
+      if (!attributes) {
+        throw new Error('sorry unable to upload properties');
+      }
+      const createdDoc = {
+        docId: attributes,
+        message: 'document succesfully added ',
+      };
+      res.status(201).json(createdDoc);
     }
-    const attributes = await documentHelper.uploadProperties(fileUrl);
-    if (!attributes) {
-      throw new Error('sorry unable to upload properties');
-    }
-    const newDoc = {
-      docId: attributes,
-      message: 'document succesfully added ',
-    };
-
-    res.status(201).json(newDoc);
   } catch (error) {
     next(error);
   }
