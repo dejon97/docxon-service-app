@@ -12,7 +12,6 @@ const getDocuments = () => {
 
 const getDocumentsById = async (req, res, next) => {
   const { id } = req.params;
-
   const documents = await documentHelper.getDocumetnByUserId(id);
   if (!documents) {
     throw new Error('something went wrong try again');
