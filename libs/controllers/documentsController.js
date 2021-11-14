@@ -30,12 +30,7 @@ const postDocuments = async (req, res, next) => {
   try {
     const myFile = req.file;
     const newDoc = req.body;
-    console.log(newDoc);
-    if (myFile) {
-      const fileUrl = await documentHelper.uploadFile(myFile);
-      if (!fileUrl) {
-        throw new Error('Sorry unable to upload try again ');
-      }
+    if (!myFile) {
       const attributes = await documentHelper.uploadProperties(newDoc);
       if (!attributes) {
         throw new Error('sorry unable to upload properties');
@@ -46,6 +41,11 @@ const postDocuments = async (req, res, next) => {
       };
       res.status(201).json(createdDoc);
     } else {
+      const fileUrl = await documentHelper.uploadFile(myFile);
+      if (!fileUrl) {
+        throw new Error('Sorry unable to upload try again ');
+      }
+      newDoc.path = fileUrl;
       const attributes = await documentHelper.uploadProperties(newDoc);
       if (!attributes) {
         throw new Error('sorry unable to upload properties');
