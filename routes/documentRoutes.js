@@ -21,9 +21,9 @@ router.get('/:docId', (req, res, next) => {
 });
 
 // get all document for a particular user using userId
-// router.get('/:userId', (req, res, next) => {
-//   documentsController.getDocumentsByUserId(req, res, next);
-// });
+router.get('/docs/:userId', (req, res, next) => {
+  documentsController.getDocumentsByUserId(req, res, next);
+});
 
 // posting a document to a user
 router.post(
