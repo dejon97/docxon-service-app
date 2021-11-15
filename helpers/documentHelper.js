@@ -57,7 +57,8 @@ const getDocumetnByUserId = async (userId) => {
     }
     const documents = [];
     snapshot.forEach((doc) => {
-      documents.push(doc.data());
+      // doc.data().docId = doc.id;
+      documents.push(doc.id, doc.data());
     });
     return documents;
   } catch (err) {
