@@ -1,4 +1,3 @@
-
 const getDocumentTypes = () => {
   const documents = [];
 

@@ -4,6 +4,7 @@ const { Validator } = require('express-json-validator-middleware');
 const validateRequestWare = require('../middlewares/validate_request_middleware');
 const documentSchema = require('../validators/documentValidatorschema.json');
 const documentsController = require('../libs/controllers/documentsController');
+const { file } = require('@babel/types');
 
 const router = express.Router();
 const { validate } = new Validator();
@@ -14,17 +15,20 @@ const multer = Multer({
   },
 });
 
-router.get('/', (req, res) => {
-  res.send('documents');
+// get a document with document Id
+router.get('/:docId', (req, res, next) => {
+  documentsController.getDocumentById(req, res, next);
 });
 
-router.get('/:id', (req, res, next) => {
-  documentsController.getDocumentsById(req, res, next);
-  // res.send(`documents ${id}`);
-});
+// get all document for a particular user using userId
+// router.get('/:userId', (req, res, next) => {
+//   documentsController.getDocumentsByUserId(req, res, next);
+// });
 
+// posting a document to a user
 router.post(
   '/',
+  multer.single('file'),
   validate({ body: documentSchema }),
   validateRequestWare,
   (req, res, next) => {

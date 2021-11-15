@@ -4,21 +4,36 @@ const multer = require('multer');
 const documentHelper = require('../../helpers/documentHelper');
 
 // https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
-const getDocuments = () => {
-  const documents = [];
+// const getDocuments = () => {
+//   const documents = [];
+//   return documents;
+// };
 
-  return documents;
-};
-
-const getDocumentsById = async (req, res, next) => {
-  const { id } = req.params;
-  const documents = await documentHelper.getDocumetnByUserId(id);
-  if (!documents) {
-    throw new Error('something went wrong try again');
+const getDocumentsByUserId = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const documents = await documentHelper.getDocumetnByUserId(userId);
+    if (!documents) {
+      throw new Error('something went wrong try again');
+    }
+    res.status(200).json(documents);
+  } catch (error) {
+    next(error);
   }
-  res.status(200).json(documents);
 };
 
+const getDocumentById = async (req, res, next) => {
+  try {
+    const { docId } = req.params;
+    const document = await documentHelper.getDocumentById(docId);
+    if (!document) {
+      throw new Error('something went wrong try again');
+    }
+    res.status(200).json(document);
+  } catch (error) {
+    next(error);
+  }
+};
 /**
  * Handles new docxon payloads.
  *
@@ -32,7 +47,7 @@ const postDocuments = async (req, res, next) => {
   // persit properties to Google Cloud Firestore
   try {
     const myFile = req.file;
-    const newDoc = req.body;
+    const newDoc = JSON.parse(JSON.stringify(req.body));
     if (!myFile) {
       const attributes = await documentHelper.uploadProperties(newDoc);
       if (!attributes) {
@@ -65,7 +80,7 @@ const postDocuments = async (req, res, next) => {
 };
 
 module.exports = {
-  getDocuments,
-  getDocumentsById,
+  getDocumentById,
+  getDocumentsByUserId,
   postDocuments,
 };

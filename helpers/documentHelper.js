@@ -64,4 +64,23 @@ const getDocumetnByUserId = async (userId) => {
     return Error('something went wront try agian');
   }
 };
-module.exports = { uploadFile, uploadProperties, getDocumetnByUserId };
+
+const getDocumentById = async (documentId) => {
+  try {
+    const docRef = await db.collection('docxondb').doc(documentId);
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      return 'No Such document exits';
+    }
+    return doc.data();
+  } catch (err) {
+    return Error('something went wront try agian');
+  }
+};
+
+module.exports = {
+  uploadFile,
+  uploadProperties,
+  getDocumetnByUserId,
+  getDocumentById,
+};
