@@ -1,7 +1,24 @@
+require('dotenv').config();
+const Firestore = require('@google-cloud/firestore');
 
 // https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
 const getDocuments = () => {
   const documents = [];
+
+  const credentials = JSON.parse(process.env.DB_CONNECTION);
+  const dbConnection = new Firestore({
+    projectId: credentials.project_id,
+    credentials,
+  });
+
+  const ref = dbConnection.collection('docxondb');
+
+  ref
+    .doc('5e94a206-ddf3-4f36-9dbc-1b75862e4113')
+    .get()
+    .then((docRef) => {
+      console.log(docRef.data());
+    });
 
   return documents;
 };

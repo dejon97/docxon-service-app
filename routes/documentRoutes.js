@@ -5,6 +5,7 @@ const router = express.Router();
 const documentsController = require('../libs/controllers/documentsController');
 
 router.get('/', (req, res) => {
+  documentsController.getDocuments();
   res.send('documents');
 });
 
@@ -17,6 +18,5 @@ router.post('/', (req, res) => {
   documentsController.postDocuments(req.body);
   res.send('documents');
 });
-
 
 module.exports = router;
