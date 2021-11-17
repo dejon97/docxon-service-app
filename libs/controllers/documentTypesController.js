@@ -1,13 +1,15 @@
-const getDocumentTypes = () => {
+const getDocumentTypes = async (req, res, next) => {
   const documents = [];
 
-  return documents;
+  res.send(`documentTypes`);
 };
 
-const getDocumentTypesById = (id) => {
+const getDocumentTypesById = async (req, res, next) => {
+  const { id } = req.params;
+
   const documents = [];
 
-  return documents;
+  res.send(`documentTypes ${id}`);
 };
 
 module.exports = {
