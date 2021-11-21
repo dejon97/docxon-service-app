@@ -1,17 +1,11 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+const firebase = require('firebase/app');
+const fireConfig = require('../config/firestoreKey');
+require('firebase/firestore');
 
-const Firestore = require('@google-cloud/firestore');
+dotenv.config();
+// initalize firestore
+firebase.initializeApp(fireConfig);
+const db = firebase.firestore();
 
-const getDBConnection = async () => {
-  const credentials = JSON.parse(process.env.DB_CONNECTION);
-  const dbConnection = new Firestore({
-    projectId: credentials.project_id,
-    credentials,
-  });
-
-  return dbConnection;
-};
-
-module.exports = {
-  getDBConnection,
-};
+module.exports = db;
