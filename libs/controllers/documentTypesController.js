@@ -1,16 +1,33 @@
-const getDocumentTypes = () => {
-  const documents = [];
+const documentTypesHelper = require('../../helpers/documentTypeHelper');
 
-  return documents;
+const getDocumentTypes = async (req, res, next) => {
+  try {
+    const documentTypes = await documentTypesHelper.getDocumentsTypes();
+    if (!documentTypes) {
+      throw new Error('something went wrong try again');
+    }
+    res.status(200).json(documentTypes);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const getDocumentTypesById = (id) => {
-  const documents = [];
-
-  return documents;
+const getDocumentTypeById = async (req, res, next) => {
+  try {
+    const { documentTypeId } = req.params;
+    const document = await documentTypesHelper.getDocumentTypeById(
+      documentTypeId
+    );
+    if (!document) {
+      throw new Error('something went wrong try again');
+    }
+    res.status(200).json(document);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
   getDocumentTypes,
-  getDocumentTypesById,
+  getDocumentTypeById,
 };
