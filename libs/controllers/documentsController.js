@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const documentHelper = require('../../helpers/documentHelper');
+const { Console } = require('winston/lib/winston/transports');
 
 // https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
 // const getDocuments = () => {
@@ -63,6 +64,7 @@ const postDocuments = async (req, res, next) => {
       if (!fileUrl) {
         throw new Error('Sorry unable to upload try again ');
       }
+
       newDoc.path = fileUrl;
       const attributes = await documentHelper.uploadProperties(newDoc);
       if (!attributes) {
@@ -79,8 +81,20 @@ const postDocuments = async (req, res, next) => {
   }
 };
 
+const updateDocumentById = async (req, res, next) => {
+  try {
+    const { docId } = req.params;
+    const doc = req.body;
+    const results = documentHelper.updateDocumentById(docId, doc);
+    res.status(200).json(results);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getDocumentById,
   getDocumentsByUserId,
   postDocuments,
+  updateDocumentById,
 };
