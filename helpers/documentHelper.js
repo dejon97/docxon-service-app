@@ -41,7 +41,6 @@ const uploadProperties = async (body) => {
 
 const getDocumetnByUserId = async (userId) => {
   try {
-    console.log('userid', userId);
     const docxonRef = db.collection(process.env.Docxoncollection);
     const snapshot = await docxonRef.where('userId', '==', userId).get();
     if (snapshot.empty) {
