@@ -16,12 +16,6 @@ const multer = Multer({
   },
 });
 
-// get a document with document Id
-router.get('/:docId', documentsController.getDocumentById);
-
-// get all document for a particular user using userId
-router.get('/docs/:userId', documentsController.getDocumentsByUserId);
-// posting a document to a user
 router.post(
   '/',
   multer.single('file'),
@@ -29,5 +23,14 @@ router.post(
   validateRequestWare,
   documentsController.postDocuments
 );
+// get a document with document Id
+router.get('/:docId', documentsController.getDocumentById);
+
+// get all document for a particular user using userId
+router.get('/docs/:userId', documentsController.getDocumentsByUserId);
+// posting a document to a user
+
+// get a document with document Id
+router.put('/:docId', documentsController.updateDocumentById);
 
 module.exports = router;

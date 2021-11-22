@@ -85,7 +85,10 @@ const updateDocumentById = async (req, res, next) => {
   try {
     const { docId } = req.params;
     const doc = req.body;
-    const results = documentHelper.updateDocumentById(docId, doc);
+    const results = await documentHelper.updateDocumentById(docId, doc);
+    if (!results) {
+      throw new Error('sorry unable to upload properties');
+    }
     res.status(200).json(results);
   } catch (error) {
     next(error);

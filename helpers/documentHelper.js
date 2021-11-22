@@ -78,11 +78,11 @@ const updateDocumentById = async (documentId, doc) => {
     const docRef = await db
       .collection(process.env.Docxoncollection)
       .doc(documentId);
-    const res = await docRef.set(doc);
+    const res = await docRef.set(doc, { merge: true });
     if (!res) {
-      return ' Update went wrong ';
+      throw new Error('something went wrong when trying to update document');
     }
-    return res;
+    return 'document update';
   } catch (err) {
     return Error('soorry update callection', err);
   }
