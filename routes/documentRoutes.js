@@ -1,22 +1,37 @@
 const express = require('express');
+const Multer = require('multer');
+const { Validator } = require('express-json-validator-middleware');
+const validateRequestWare = require('../middlewares/validate_request_middleware');
+const documentSchema = require('../validators/documentValidatorschema.json');
+const documentsController = require('../libs/controllers/documentsController');
+// const { file } = require('@babel/types');
 
 const router = express.Router();
+const { validate } = new Validator();
 
-const documentsController = require('../libs/controllers/documentsController');
-
-router.get('/', (req, res) => {
-  documentsController.getDocuments();
-  res.send('documents');
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 10 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+  },
 });
 
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  res.send(`documents ${id}`);
-});
+router.post(
+  '/',
+  multer.single('file'),
+  validate({ body: documentSchema }),
+  validateRequestWare,
+  documentsController.postDocuments
+);
 
-router.post('/', (req, res) => {
-  documentsController.postDocuments(req.body);
-  res.send('documents');
-});
+// get a document with document Id
+router.get('/:docId', documentsController.getDocumentById);
+
+// get all document for a particular user using userId
+router.get('/docs/:userId', documentsController.getDocumentsByUserId);
+// posting a document to a user
+
+// get a document with document Id
+router.put('/:docId', documentsController.updateDocumentById);
 
 module.exports = router;
