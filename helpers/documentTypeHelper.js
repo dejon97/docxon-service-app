@@ -1,13 +1,11 @@
-const dotenv = require('dotenv');
+require('dotenv').config();
 const db = require('../utils/connect');
-
-dotenv.config();
 
 const getDocumentsTypes = async () => {
   try {
     const documents = [];
     const snapshot = await db
-      .collection(process.env.DocumentTypeCollection)
+      .collection(process.env.DOCUMENT_TYPE_COLLECTION)
       .get();
     if (snapshot.empty) {
       return 'no document found ';
@@ -25,7 +23,7 @@ const getDocumentsTypes = async () => {
 const getDocumentTypeById = async (documentTypeId) => {
   try {
     const docRef = await db
-      .collection(process.env.DocumentTypeCollection)
+      .collection(process.env.DOCUMENT_TYPE_COLLECTION)
       .doc(documentTypeId);
     const doc = await docRef.get();
     if (!doc.exists) {

@@ -29,7 +29,7 @@ const uploadFile = (file) =>
 
 const uploadProperties = async (body) => {
   try {
-    const res = await db.collection(process.env.Docxoncollection).add(body);
+    const res = await db.collection(process.env.DOCUMENTS_COLLECTION).add(body);
     if (!res) {
       throw new Error('something went wrong');
     }
@@ -41,7 +41,7 @@ const uploadProperties = async (body) => {
 
 const getDocumetnByUserId = async (userId) => {
   try {
-    const docxonRef = db.collection(process.env.Docxoncollection);
+    const docxonRef = db.collection(process.env.DOCUMENTS_COLLECTION);
     const snapshot = await docxonRef.where('userId', '==', userId).get();
     if (snapshot.empty) {
       return 'No matching documents.';
@@ -55,7 +55,7 @@ const getDocumetnByUserId = async (userId) => {
     });
     return documents;
   } catch (err) {
-    return Error('something went wront try agian');
+    return Error('something went wrong try agian');
   }
 };
 
@@ -70,13 +70,13 @@ const getDocumentById = async (documentId) => {
     }
     return doc.data();
   } catch (err) {
-    return Error('something went wront try agian');
+    return Error('something went wrong try agian');
   }
 };
 const updateDocumentById = async (documentId, doc) => {
   try {
     const docRef = await db
-      .collection(process.env.Docxoncollection)
+      .collection(process.env.DOCUMENTS_COLLECTION)
       .doc(documentId);
     const res = await docRef.set(doc, { merge: true });
     if (!res) {
@@ -84,7 +84,7 @@ const updateDocumentById = async (documentId, doc) => {
     }
     return 'document update';
   } catch (err) {
-    return Error('soorry update callection', err);
+    return Error('sorry update cancelled', err);
   }
 };
 
