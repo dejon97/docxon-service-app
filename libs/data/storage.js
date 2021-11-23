@@ -3,7 +3,7 @@ require('dotenv').config();
 const { Storage } = require('@google-cloud/storage');
 const logger = require('../../utils/logger');
 
-const credentials = JSON.parse(process.env.DB_CONNECTION);
+const credentials = JSON.parse(process.env.STORAGE_CONNECTION);
 
 const getStorage = () => {
   const storage = new Storage({

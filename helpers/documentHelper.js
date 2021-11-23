@@ -1,12 +1,11 @@
+require('dotenv').config();
 const { format } = require('util');
-const dotenv = require('dotenv');
-const gc = require('../config/');
 const GenerateName = require('./randomNameGenerator');
-// storage configuration
-const bucket = gc.bucket(process.env.BUCKET_NAME);
-const db = require('../utils/connect');
+const db = require('../libs/data/db').getDB();
 
-dotenv.config();
+const storage = require('../libs/data/storage').getStorage();
+
+const bucket = storage.bucket(process.env.BUCKET_NAME);
 
 const uploadFile = (file) =>
   new Promise((resolve, reject) => {
@@ -73,6 +72,7 @@ const getDocumentById = async (documentId) => {
     return Error('something went wrong try agian');
   }
 };
+
 const updateDocumentById = async (documentId, doc) => {
   try {
     const docRef = await db
