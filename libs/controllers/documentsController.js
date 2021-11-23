@@ -1,6 +1,3 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const multer = require('multer');
 const documentHelper = require('../../helpers/documentHelper');
 const { Console } = require('winston/lib/winston/transports');
 
@@ -9,7 +6,6 @@ const { Console } = require('winston/lib/winston/transports');
 //   const documents = [];
 //   return documents;
 // };
-
 
 const getDocumentsByUserId = async (req, res, next) => {
   try {
