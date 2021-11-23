@@ -23,6 +23,7 @@ router.post(
   validateRequestWare,
   documentsController.postDocuments
 );
+
 // get a document with document Id
 router.get('/:docId', documentsController.getDocumentById);
 
