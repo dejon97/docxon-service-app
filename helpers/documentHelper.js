@@ -3,11 +3,9 @@ const { format } = require('util');
 const GenerateName = require('./randomNameGenerator');
 const db = require('../libs/data/db').getDB();
 
-const storage = require('../libs/data/storage').getStorage();
+const bucket = require('../libs/data/storage').getBucket();
 
-const bucket = storage.bucket(process.env.BUCKET_NAME);
-
-const uploadFile = (file) =>
+const uploadFile = (file) => {
   new Promise((resolve, reject) => {
     const { originalname, buffer } = file;
     const blob = bucket.file(originalname);
@@ -25,6 +23,7 @@ const uploadFile = (file) =>
       })
       .end(buffer);
   });
+};
 
 const uploadProperties = async (body) => {
   try {
@@ -61,7 +60,7 @@ const getDocumetnByUserId = async (userId) => {
 const getDocumentById = async (documentId) => {
   try {
     const docRef = await db
-      .collection(process.env.Docxoncollection)
+      .collection(process.env.DOCUMENTS_COLLECTION)
       .doc(documentId);
     const doc = await docRef.get();
     if (!doc.exists) {

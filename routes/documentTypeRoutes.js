@@ -6,4 +6,5 @@ const documentTypesController = require('../libs/controllers/documentTypesContro
 
 router.get('/', documentTypesController.getDocumentTypes);
 router.get('/:documentTypeId', documentTypesController.getDocumentTypeById);
+
 module.exports = router;

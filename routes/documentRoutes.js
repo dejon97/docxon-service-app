@@ -29,9 +29,10 @@ router.get('/:docId', documentsController.getDocumentById);
 
 // get all document for a particular user using userId
 router.get('/docs/:userId', documentsController.getDocumentsByUserId);
+
 // posting a document to a user
 
-// get a document with document Id
+// update a document with document Id
 router.put('/:docId', documentsController.updateDocumentById);
 
 module.exports = router;

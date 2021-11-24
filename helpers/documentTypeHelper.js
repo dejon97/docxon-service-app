@@ -1,5 +1,5 @@
 require('dotenv').config();
-const db = require('../utils/connect');
+const db = require('../libs/data/db').getDB();
 
 const getDocumentsTypes = async () => {
   try {
@@ -12,7 +12,7 @@ const getDocumentsTypes = async () => {
     }
 
     snapshot.forEach((doc) => {
-      documents.push(doc.id);
+      documents.push(doc.data());
     });
     return documents;
   } catch (err) {
@@ -25,7 +25,9 @@ const getDocumentTypeById = async (documentTypeId) => {
     const docRef = await db
       .collection(process.env.DOCUMENT_TYPE_COLLECTION)
       .doc(documentTypeId);
+
     const doc = await docRef.get();
+
     if (!doc.exists) {
       return 'No Such documentType exits';
     }
@@ -34,4 +36,8 @@ const getDocumentTypeById = async (documentTypeId) => {
     return Error('something went wront try agian');
   }
 };
-module.exports = { getDocumentsTypes, getDocumentTypeById };
+
+module.exports = {
+  getDocumentsTypes,
+  getDocumentTypeById,
+};

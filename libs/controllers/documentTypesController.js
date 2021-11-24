@@ -15,9 +15,11 @@ const getDocumentTypes = async (req, res, next) => {
 const getDocumentTypeById = async (req, res, next) => {
   try {
     const { documentTypeId } = req.params;
+
     const document = await documentTypesHelper.getDocumentTypeById(
       documentTypeId
     );
+
     if (!document) {
       throw new Error('something went wrong try again');
     }

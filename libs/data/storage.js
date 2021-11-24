@@ -5,17 +5,18 @@ const logger = require('../../utils/logger');
 
 const credentials = JSON.parse(process.env.STORAGE_CONNECTION);
 
-const getStorage = () => {
+const getBucket = () => {
   const storage = new Storage({
     projectId: credentials.project_id,
     credentials,
   });
 
   logger.info('SUCCESS: Storage Connection');
+  const bucket = storage.bucket(process.env.BUCKET_NAME);
 
-  return storage;
+  return bucket;
 };
 
 module.exports = {
-  getStorage,
+  getBucket,
 };

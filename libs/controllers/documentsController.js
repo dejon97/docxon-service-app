@@ -1,5 +1,4 @@
 const documentHelper = require('../../helpers/documentHelper');
-const { Console } = require('winston/lib/winston/transports');
 
 // https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
 // const getDocuments = () => {
@@ -32,6 +31,7 @@ const getDocumentById = async (req, res, next) => {
     next(error);
   }
 };
+
 /**
  * Handles new docxon payloads.
  *
