@@ -6,6 +6,7 @@ const cors = require('cors');
 const documentRoutes = require('./routes/documentRoutes');
 const documentTypeRoutes = require('./routes/documentTypeRoutes');
 const fileRoutes = require('./routes/fileRoutes');
+const docxonRoutes = require('./routes/docxonRoutes');
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.get('/api/health', (req, res) => {
 app.use('/service/documents', documentRoutes);
 app.use('/service/documentTypes', documentTypeRoutes);
 app.use('/service/files', fileRoutes);
+app.use('/service/docxon', docxonRoutes);
 
 module.exports = app;

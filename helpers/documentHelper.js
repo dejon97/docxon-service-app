@@ -25,8 +25,27 @@ const uploadFile = (file) => {
   });
 };
 
+const uploadFileFromBuffer = (buffer, filename) => {
+  return new Promise((resolve, reject) => {
+    const blob = bucket.file(filename);
+    const blobStream = blob.createWriteStream();
+
+    blobStream
+      .on('finish', () => {
+        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        resolve(publicUrl);
+      })
+      .on('error', () => {
+        reject(new Error('Unable to upload image, something went wrong'));
+      })
+      .end(buffer);
+  });
+};
+
 const uploadProperties = async (body) => {
   try {
+    // body.timestamp = db.FieldValue.serverTimestamp();
+
     const res = await db.collection(process.env.DOCUMENTS_COLLECTION).add(body);
     if (!res) {
       throw new Error('something went wrong');
@@ -93,4 +112,5 @@ module.exports = {
   getDocumetnByUserId,
   getDocumentById,
   updateDocumentById,
+  uploadFileFromBuffer,
 };
