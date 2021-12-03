@@ -16,11 +16,11 @@ const storeDocumentAndFile = async (req, res) => {
     fields,
   } = properties;
 
-  const docProperties = fields.reduce((obj, item) => {
-    obj[item.name] = item.value;
-    return obj;
-  }, {});
-
+//   const docProperties = fields.reduce((obj, item) => {
+//     obj[item.name] = item.value;
+//     return obj;
+//   }, {});
+  const docProperties =  fields;
   docProperties.userId = id;
   docProperties.documentType = `${namespace}:${name}`;
   docProperties.mime = document.mime;
