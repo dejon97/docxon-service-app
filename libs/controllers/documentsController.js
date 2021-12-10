@@ -91,10 +91,23 @@ const updateDocumentById = async (req, res, next) => {
     next(error);
   }
 };
+const deleteDocumentById = async (req, res, next) => {
+  try {
+    const { docId } = req.params;
+    const document = await documentHelper.deleteDocumentById(docId);
+    if (!document) {
+      throw new Error('something went wrong try again');
+    }
+    res.status(200).json(document);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getDocumentById,
   getDocumentsByUserId,
   postDocuments,
   updateDocumentById,
+  deleteDocumentById,
 };

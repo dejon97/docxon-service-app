@@ -105,7 +105,20 @@ const updateDocumentById = async (documentId, doc) => {
     return Error('sorry update cancelled', err);
   }
 };
-
+const deleteDocumentById = async (documentId) => {
+  try {
+    const res = await db
+      .collection(process.env.DOCUMENTS_COLLECTION)
+      .doc(documentId)
+      .delete();
+    if (!res) {
+      throw new Error('something went wrong when trying to delete document');
+    }
+    return 'document deleted';
+  } catch (err) {
+    return Error('sorry update cancelled', err);
+  }
+};
 module.exports = {
   uploadFile,
   uploadProperties,
@@ -113,4 +126,5 @@ module.exports = {
   getDocumentById,
   updateDocumentById,
   uploadFileFromBuffer,
+  deleteDocumentById,
 };
