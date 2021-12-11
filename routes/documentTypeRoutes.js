@@ -6,5 +6,12 @@ const documentTypesController = require('../libs/controllers/documentTypesContro
 
 router.get('/', documentTypesController.getDocumentTypes);
 router.get('/:documentTypeId', documentTypesController.getDocumentTypeById);
+// update a document with document Id
+router.put('/:documentTypeId', documentTypesController.updateDocumentTypeById);
+
+router.delete(
+  '/:documentTypeId',
+  documentTypesController.deleteDocumentTypeById
+);
 
 module.exports = router;

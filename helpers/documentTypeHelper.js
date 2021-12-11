@@ -37,7 +37,42 @@ const getDocumentTypeById = async (documentTypeId) => {
   }
 };
 
+const updateDocumentTypeById = async (documentTypeId, doc) => {
+  try {
+    const docRef = await db
+      .collection(process.env.DOCUMENT_TYPE_COLLECTION)
+      .doc(documentTypeId);
+    const res = await docRef.set(doc, { merge: true });
+    if (!res) {
+      throw new Error(
+        'something went wrong when trying to update documentType'
+      );
+    }
+    return 'documentType update';
+  } catch (err) {
+    return Error('sorry update cancelled', err);
+  }
+};
+
+const deleteDocumentTypeById = async (documentTypeId) => {
+  try {
+    const docRef = await db
+      .collection(process.env.DOCUMENT_TYPE_COLLECTION)
+      .doc(documentTypeId)
+      .delete();
+
+    if (!docRef) {
+      return 'Sorry something went wrong';
+    }
+    return `documenttype of ${documentTypeId} deleted`;
+  } catch (err) {
+    return Error('something went wront try agian');
+  }
+};
+
 module.exports = {
   getDocumentsTypes,
   getDocumentTypeById,
+  updateDocumentTypeById,
+  deleteDocumentTypeById,
 };
