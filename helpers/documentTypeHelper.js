@@ -1,6 +1,19 @@
 require('dotenv').config();
 const db = require('../libs/data/db').getDB();
 
+const createDocumentType = async (body) => {
+  try {
+    const res = await db
+      .collection(process.env.DOCUMENT_TYPE_COLLECTION)
+      .add(body);
+    if (!res) {
+      throw new Error('something went wrong');
+    }
+    return res.id;
+  } catch (err) {
+    return Error('something went wrong', err);
+  }
+};
 const getDocumentsTypes = async () => {
   try {
     const documents = [];
@@ -71,6 +84,7 @@ const deleteDocumentTypeById = async (documentTypeId) => {
 };
 
 module.exports = {
+  createDocumentType,
   getDocumentsTypes,
   getDocumentTypeById,
   updateDocumentTypeById,

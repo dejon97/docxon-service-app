@@ -4,6 +4,7 @@ const router = express.Router();
 
 const documentTypesController = require('../libs/controllers/documentTypesController');
 
+router.post('/', documentTypesController.postDocumentType);
 router.get('/', documentTypesController.getDocumentTypes);
 router.get('/:documentTypeId', documentTypesController.getDocumentTypeById);
 // update a document with document Id

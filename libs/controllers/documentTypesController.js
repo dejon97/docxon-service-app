@@ -1,5 +1,22 @@
 const documentTypesHelper = require('../../helpers/documentTypeHelper');
 
+const postDocumentType = async (req, res, next) => {
+  try {
+    const newDoc = JSON.parse(JSON.stringify(req.body));
+    const documentType = await documentTypesHelper.createDocumentType(newDoc);
+    if (!documentType) {
+      throw new Error('sorry unable to  create document type');
+    }
+    const createdDoc = {
+      docId: documentType,
+      message: 'documentType succesfully added ',
+    };
+    res.status(201).json(createdDoc);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getDocumentTypes = async (req, res, next) => {
   try {
     const documentTypes = await documentTypesHelper.getDocumentsTypes();
@@ -62,6 +79,7 @@ const deleteDocumentTypeById = async (req, res, next) => {
   }
 };
 module.exports = {
+  postDocumentType,
   getDocumentTypes,
   getDocumentTypeById,
   updateDocumentTypeById,
