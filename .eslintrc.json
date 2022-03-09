@@ -1,7 +1,9 @@
 {
     "parserOptions": {
+        "parser":"babel-eslint",
         "ecmaVersion": 8,
         "sourceType": "module"
+       
     },
     "extends": ["airbnb-base"],
     "env": {
@@ -18,6 +20,7 @@
         "no-unused-vars": "warn",
         "no-undef": "warn",
         "no-mixed-spaces-and-tabs": "off",
-        "no-unreachable": "warn"
+        "no-unreachable": "warn",
+        
     }
 }

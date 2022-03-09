@@ -1,11 +1,31 @@
+const algoliasearch = require('algoliasearch');
+//const algoliaClient = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_ADMIN_API_KEY_ID);
 const documentHelper = require('../../helpers/documentHelper');
+const _ = require('lodash');
+// const client = algoliasearch('RC5J3MBI7G',
+//     '80d7855e24daade163332dd2d8c70449');
+//   const index = client.initIndex('documents');
 
-// https://developer.wordpress.org/coding-standards/inline-documentation-standards/javascript/
-// const getDocuments = () => {
-//   const documents = [];
-//   return documents;
+// const searchDocuments = async (req, res, next) => {
+//   try {
+
+//   index.setSettings({
+//     attributesForFaceting: ['userId']
+//   });
+
+//     const {searchIndex} =  req.body
+//     const{userId} =  req.body
+//     const documents  =  await index.search(searchIndex,{
+//       filters: `(userId:${userId})`
+//     })
+//     if (!documents) {
+//       throw new Error('something went wrong try again');
+//     }
+//     res.status(200).json(documents);
+//   } catch (error) {
+//     next(error);
+//   }
 // };
-
 const getDocumentsByUserId = async (req, res, next) => {
   try {
     const { userId } = req.params;

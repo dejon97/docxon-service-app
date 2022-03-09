@@ -1,3 +1,4 @@
+const moment = require('moment');
 const {
   uploadProperties,
   uploadFileFromBuffer,
@@ -16,17 +17,17 @@ const storeDocumentAndFile = async (req, res) => {
     fields,
   } = properties;
 
-//   const docProperties = fields.reduce((obj, item) => {
-//     obj[item.name] = item.value;
-//     return obj;
-//   }, {});
-  const docProperties =  fields;
+  const docProperties = fields.reduce((obj, item) => {
+    obj[item.name] = item.value;
+    return obj;
+  }, {});
   docProperties.userId = id;
   docProperties.documentType = `${namespace}:${name}`;
   docProperties.mime = document.mime;
   docProperties.filename = document.filename;
-  docProperties.createdTime = `${new Date().getTime()}`;
-
+  docProperties.createdTime = moment().format();
+  docProperties.isLater = false;
+  docProperties.isViewed = false;
   const fileBuffer = Buffer.from(document.file, 'base64');
 
   const filename = `${docProperties.createdTime}_${document.filename}`;
@@ -34,8 +35,6 @@ const storeDocumentAndFile = async (req, res) => {
   console.log(fileURL);
 
   docProperties.documentURL = fileURL;
-
-  console.log(docProperties);
 
   uploadProperties(docProperties);
 

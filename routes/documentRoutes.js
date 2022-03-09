@@ -37,4 +37,5 @@ router.put('/:docId', documentsController.updateDocumentById);
 
 // delete a document with document Id
 router.delete('/:docId', documentsController.deleteDocumentById);
+
 module.exports = router;

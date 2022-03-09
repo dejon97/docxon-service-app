@@ -7,14 +7,16 @@ const documentRoutes = require('./routes/documentRoutes');
 const documentTypeRoutes = require('./routes/documentTypeRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const docxonRoutes = require('./routes/docxonRoutes');
+const algoliaHelper = require('./helpers/algoria-search');
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(helmet());
 app.use(cors());
+// app.use(algoliaHelper());
 
 // Routes
 app.use('/', (req, res, next) => {

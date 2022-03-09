@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { Console } = require('console');
 const { format } = require('util');
 const GenerateName = require('./randomNameGenerator');
 const db = require('../libs/data/db').getDB();
@@ -59,7 +60,10 @@ const uploadProperties = async (body) => {
 const getDocumetnByUserId = async (userId) => {
   try {
     const docxonRef = db.collection(process.env.DOCUMENTS_COLLECTION);
-    const snapshot = await docxonRef.where('userId', '==', userId).get();
+    const snapshot = await docxonRef
+      .where('receiverEmail', '==', userId)
+      .orderBy('companyName')
+      .get();
     if (snapshot.empty) {
       return 'No matching documents.';
     }
@@ -68,7 +72,7 @@ const getDocumetnByUserId = async (userId) => {
     }
     const documents = [];
     snapshot.forEach((doc) => {
-      documents.push(doc.id, doc.data());
+      documents.push(doc.data());
     });
     return documents;
   } catch (err) {
@@ -119,6 +123,25 @@ const deleteDocumentById = async (documentId) => {
     return Error('sorry update cancelled', err);
   }
 };
+const searchUserDocuments = async (userId, searchText) => {
+  try {
+    const documentsRef = db.collection(process.env.DOCUMENTS_COLLECTION);
+    const userDoc = documentsRef.where('userId', '==', userId);
+    const res = userDoc.where('documentType', 'array-contains-any', searchText);
+    const results = await res.get();
+
+    results.forEach((doc) => {
+      console.log(doc.data());
+    });
+    const documents = [];
+    // res.forEach((doc) => {
+    //   documents.push(doc.data());
+    // });
+    res.status(200).json({ documents });
+  } catch (err) {
+    return Error('something went wrong');
+  }
+};
 module.exports = {
   uploadFile,
   uploadProperties,
@@ -127,4 +150,5 @@ module.exports = {
   updateDocumentById,
   uploadFileFromBuffer,
   deleteDocumentById,
+  searchUserDocuments,
 };
