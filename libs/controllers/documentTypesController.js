@@ -2,15 +2,13 @@ const documentTypesHelper = require('../../helpers/documentTypeHelper');
 
 const postDocumentType = async (req, res, next) => {
   try {
-    const newDoc = JSON.parse(JSON.stringify(req.body));
-    const documentType = await documentTypesHelper.createDocumentType(newDoc);
-    if (!documentType) {
-      throw new Error('sorry unable to  create document type');
-    }
+    const newDocType = JSON.parse(JSON.stringify(req.body));
+    await documentTypesHelper.createDocumentType(newDocType);
+
     const createdDoc = {
-      docId: documentType,
-      message: 'documentType succesfully added ',
+      message: `Document Type ${newDocType.namespace}:${newDocType.name} added succesfully.`,
     };
+
     res.status(201).json(createdDoc);
   } catch (error) {
     next(error);
