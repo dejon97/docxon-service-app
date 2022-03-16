@@ -56,6 +56,21 @@ const uploadProperties = async (body) => {
     return Error('something went wrong');
   }
 };
+const uploadpersonalProperties = async (body) => {
+  try {
+    // body.timestamp = db.FieldValue.serverTimestamp();
+
+    const res = await db
+      .collection(process.env.PERSONAL_DOCUMENTS_COLLECTION)
+      .add(body);
+    if (!res) {
+      throw new Error('something went wrong');
+    }
+    return res.id;
+  } catch (err) {
+    return Error('something went wrong');
+  }
+};
 
 const getDocumetnByUserId = async (userId) => {
   try {
@@ -145,6 +160,7 @@ const searchUserDocuments = async (userId, searchText) => {
 module.exports = {
   uploadFile,
   uploadProperties,
+  uploadpersonalProperties,
   getDocumetnByUserId,
   getDocumentById,
   updateDocumentById,
