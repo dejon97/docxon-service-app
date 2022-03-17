@@ -55,7 +55,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-# .env
+.env
 
 # next.js build output
 .next
@@ -130,8 +130,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-# .env
-# .env.test
+.env
+.env.test
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -165,11 +165,11 @@ _cacache
 .tern-port
 
 /pgdata
-# *.env
+*.env
 
 dist
 .DS_Store
-#.env.dev
+.env.dev
 public/uploads
 .vscode
 Dockerfile.test
