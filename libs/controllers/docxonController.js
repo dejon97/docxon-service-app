@@ -26,7 +26,7 @@ const storeDocumentAndFile = async (req, res) => {
   docProperties.documentType = `${namespace}:${name}`;
   docProperties.mime = document.mime;
   docProperties.filename = document.filename;
-  docProperties.createdTime = moment().format();
+  docProperties.createdTime = moment().format('DD-MM-YYYY');
   docProperties.isLater = false;
   docProperties.isViewed = false;
   const me = '';
@@ -67,7 +67,7 @@ const storePersonalDocumentAndFile = async (req, res) => {
   docProperties.documentType = `${namespace}:${name}`;
   docProperties.mime = document.mime;
   docProperties.filename = document.filename;
-  docProperties.createdTime = moment().format();
+  docProperties.createdTime = moment().format('DD-MM-YYYY');
   const fileBuffer = Buffer.from(
     document.file.replace(/^data:.+;base64,/, ''),
     'base64'
@@ -78,7 +78,7 @@ const storePersonalDocumentAndFile = async (req, res) => {
   docProperties.documentURL = fileURL;
 
   uploadpersonalProperties(docProperties);
-
+  console.log('sent succesfully');
   res.json({ status: 'Ok' });
 };
 
