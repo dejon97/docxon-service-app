@@ -37,7 +37,7 @@
     "devDependencies": {
         "bluebird": "~3.5.1",
         "dotenv": "~4.0.0",
-        "eslint": "^8.7.0",
+        "eslint": "^7.32.0",
         "eslint-config-airbnb-base": "^14.1.0",
         "eslint-plugin-import": "^2.20.2",
         "husky": "^4.2.5",
