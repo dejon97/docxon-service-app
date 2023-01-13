@@ -11,9 +11,9 @@ const algoliaHelper = require('./helpers/algoria-search');
 
 const app = express();
 
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ extended: true }));
-
+const maxRequestBodySize = '50mb';
+app.use(express.json({ limit: maxRequestBodySize }));
+app.use(express.urlencoded({ limit: maxRequestBodySize }));
 app.use(helmet());
 app.use(cors());
 // app.use(algoliaHelper());
