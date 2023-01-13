@@ -27,7 +27,6 @@ const storeDocumentAndFile = async (req, res) => {
   docProperties.mime = document.mime;
   docProperties.filename = document.filename;
   docProperties.createdTime = moment().format('DD-MM-YYYY');
-  docProperties.timestamp = Date.now();
   docProperties.isLater = false;
   docProperties.isViewed = false;
   const me = '';
@@ -69,7 +68,6 @@ const storePersonalDocumentAndFile = async (req, res) => {
   docProperties.mime = document.mime;
   docProperties.filename = document.filename;
   docProperties.createdTime = moment().format('DD-MM-YYYY');
-  docProperties.timestamp = Date.now();
   const fileBuffer = Buffer.from(
     document.file.replace(/^data:.+;base64,/, ''),
     'base64'
