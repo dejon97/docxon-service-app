@@ -3,7 +3,12 @@ const { Console } = require('console');
 const { format } = require('util');
 const GenerateName = require('./randomNameGenerator');
 const db = require('../libs/data/db').getDB();
-
+const {
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} = require('firebase/firestore');
 const bucket = require('../libs/data/storage').getBucket();
 
 const uploadFile = (file) => {
@@ -157,6 +162,32 @@ const searchUserDocuments = async (userId, searchText) => {
     return Error('something went wrong');
   }
 };
+
+const shareDocumentRecieved = async (documentId, receiveremail) => {
+  try {
+    console.log('hello how are you');
+    console.log(documentId);
+    console.log(receiveremail);
+
+    const docRef = await db
+      .collection(process.env.DOCUMENTS_COLLECTION)
+      .doc(documentId)
+      .set(
+        {
+          shareWith: arrayUnion(receiveremail),
+        },
+        { merge: true }
+      );
+    console.log('dkskdskdskd');
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      return 'No Such document exits';
+    }
+    return doc.data();
+  } catch (err) {
+    return Error('something went wrong try agian');
+  }
+};
 module.exports = {
   uploadFile,
   uploadProperties,
@@ -167,4 +198,5 @@ module.exports = {
   uploadFileFromBuffer,
   deleteDocumentById,
   searchUserDocuments,
+  shareDocumentRecieved,
 };

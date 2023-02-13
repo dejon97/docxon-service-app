@@ -124,10 +124,25 @@ const deleteDocumentById = async (req, res, next) => {
   }
 };
 
+const shareDocument = async (req, res, next) => {
+  try {
+    const { docId } = req.params;
+    const { email } = req.body;
+
+    const document = await documentHelper.shareDocumentRecieved(docId, email);
+    if (!document) {
+      throw new Error('something went wrong try again');
+    }
+    res.status(200).json(document);
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   getDocumentById,
   getDocumentsByUserId,
   postDocuments,
   updateDocumentById,
   deleteDocumentById,
+  shareDocument,
 };
