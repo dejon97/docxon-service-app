@@ -8,7 +8,7 @@ const {
   updateDoc,
   arrayUnion,
   arrayRemove,
-} = require('firebase/firestore');
+} = require('@firebase/firestore');
 const bucket = require('../libs/data/storage').getBucket();
 
 const uploadFile = (file) => {
